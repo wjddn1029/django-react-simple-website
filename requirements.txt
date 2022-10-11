@@ -3,3 +3,5 @@ pillow
 django-debug-toolbar
 django-extensions
 django-bootstrap4
+
+# 향후 pypi서버와 연동 예정
