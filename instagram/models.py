@@ -23,3 +23,26 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('instagram:post_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['-id']
+
+    # def message_length(self):
+    #     return len(self.message)
+    # message_length.short_description = "메세지 글자수"
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             limit_choices_to={'is_public': True})  # post_id 필드가 생성이 됩니다.
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    # post_set = models.ManyToManyField(Post)
+
+    def __str__(self):
+        return self.name
