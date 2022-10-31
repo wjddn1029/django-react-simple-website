@@ -82,14 +82,25 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 post_edit = PostUpdateView.as_view()
 
 
-@login_required
-def post_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        post.delete()
-        messages.success(request, '포스팅을 삭제했습니다.')
-        return redirect('instagram:post_list')
-    return render(request, 'instagram/post_confirm_delete.html', {
-        'post': post,
-    })
+# @login_required
+# def post_delete(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     if request.method == 'POST':
+#         post.delete()
+#         messages.success(request, '포스팅을 삭제했습니다.')
+#         return redirect('instagram:post_list')
+#     return render(request, 'instagram/post_confirm_delete.html', {
+#         'post': post,
+#     })
+
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('instagram:post_list')
+
+    # def get_success_url(self):
+    #     return reverse('instagram:post_list')
+
+
+post_delete = PostDeleteView.as_view()
 
