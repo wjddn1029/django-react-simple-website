@@ -164,3 +164,4 @@ post_detail = PostDetailView.as_view()
 
 post_archive = ArchiveIndexView.as_view(model=Post, date_field='created_at', paginate_by=10)
 
+post_archive_year = YearArchiveView.as_view(model=Post, date_field='created_at', make_object_list=True)
